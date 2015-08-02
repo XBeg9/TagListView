@@ -3,6 +3,7 @@
 <!-- [![Travis CI](https://travis-ci.org/xhacker/TagListView.svg)](https://travis-ci.org/xhacker/TagListView) -->
 [![Version](https://img.shields.io/cocoapods/v/TagListView.svg?style=flat)](http://cocoadocs.org/docsets/TagListView/)
 [![License](https://img.shields.io/cocoapods/l/TagListView.svg?style=flat)](https://github.com/xhacker/TagListView/blob/master/LICENSE)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Simple but highly customizable iOS tag list view, in Swift. The APIs are *not* stable before 1.0.
 
@@ -37,17 +38,35 @@ You can implement `TagListViewDelegate` to receive tag pressed event:
     // ...
 }
 
-func tagPressed(title: String, sender: TagListView) {
+func tagPressed(title: String, tagView: TagView, sender: TagListView) {
     println("Tag pressed: \(title), \(sender)")
 }
 ```
 
+You can also customize a particular tag, or set tap handler for it by manipulating the `TagView` object returned by `addTag(_:)`:
+
+```swift
+let tagView = tagListView.addTag("blue")
+tagView.tagBackgroundColor = UIColor.blueColor()
+tagView.onTap = { tagView in
+    println("Don’t tap me!")
+}
+```
+
+Be aware that if you update a property (e.g. `tagBackgroundColor`) for a `TagListView`, all the inner `TagView`s will be updated.
+
 ## Installation
 
-Use CocoaPods:
+Use [CocoaPods](https://github.com/CocoaPods/CocoaPods):
 
 ```ruby
 pod 'TagListView'
+```
+
+Or [Carthage](https://github.com/Carthage/Carthage):
+
+```ruby
+github "xhacker/TagListView"
 ```
 
 Or drag **TagListView** folder into your project.
